@@ -2,6 +2,15 @@
 import streamlit as st
 import os
 
+
+# ─────────────────────────────────────────────
+# SILENCE WARNINGS (To clean up terminal logs)
+# ─────────────────────────────────────────────
+import warnings
+# Ignore 'Accessing __path__' warnings from transformers library
+warnings.filterwarnings("ignore", category=FutureWarning)
+warnings.filterwarnings("ignore", message=".*Accessing.*__path__.*")
+
 # ─────────────────────────────────────────────
 # CUSTOM CSS
 # ─────────────────────────────────────────────
