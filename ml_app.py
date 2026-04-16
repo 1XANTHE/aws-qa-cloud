@@ -1,39 +1,9 @@
-# ml_app.py — Custom ML-Based QA System (System 2) + S3 Integration
 import re
 import time
-import os
 import numpy as np
-import boto3
 from sentence_transformers import SentenceTransformer, util
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-
-# ─────────────────────────────────────────────
-# S3 CONFIGURATION
-# ─────────────────────────────────────────────
-# CHANGE THIS TO YOUR BUCKET NAME
-S3_BUCKET = "aws-qa-dataset-0347" 
-S3_FILE_KEY = "aws_docs.txt"
-LOCAL_FILE_PATH = "data/aws_docs.txt"
-
-def download_data_from_s3():
-    """
-    Downloads data from S3 if local file is missing.
-    Uses default AWS credentials (Environment variables or IAM Role).
-    """
-    try:
-        s3 = boto3.client('s3')
-        print(f"📡 Connecting to S3 Bucket: {S3_BUCKET}...")
-        # Create directory if not exists
-        os.makedirs(os.path.dirname(LOCAL_FILE_PATH), exist_ok=True)
-        
-        s3.download_file(S3_BUCKET, S3_FILE_KEY, LOCAL_FILE_PATH)
-        print(f"✅ Successfully downloaded {S3_FILE_KEY} from S3.")
-        return True
-    except Exception as e:
-        print(f"⚠️  S3 Download failed: {e}")
-        print("🔹 Attempting to use local file if available...")
-        return False
 
 # ─────────────────────────────────────────────
 # SECTION 1 — STRUCTURED DATA LOADING
@@ -41,17 +11,6 @@ def download_data_from_s3():
 
 def load_structured_docs(filepath):
     """Parse aws_docs.txt into section-aware chunks with metadata."""
-    
-    # --- S3 CHECK: If local file missing, try S3 ---
-    if not os.path.exists(filepath):
-        print(f"🔸 Local file '{filepath}' not found.")
-        success = download_data_from_s3()
-        if not success:
-            # If S3 failed and file still doesn't exist, raise error
-            if not os.path.exists(filepath):
-                raise FileNotFoundError(f"Could not load data from S3 or local path: {filepath}")
-
-    # --- NORMAL PARSING ---
     with open(filepath, "r", encoding="utf-8") as f:
         text = f.read()
 
@@ -260,7 +219,6 @@ def main():
     print("  AWS Documentation QA — Advanced ML Model")
     print("=" * 55)
 
-    # S3 Logic is inside load_structured_docs now
     chunks, metadata = load_structured_docs("data/aws_docs.txt")
     retriever = HybridRetriever(chunks, metadata)
 
