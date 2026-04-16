@@ -1,44 +1,16 @@
-# ingest.py — Builds the FAISS vector store + S3 Support
+# ingest.py — Original Version (No S3)
 import os
 import re
-import boto3
 from langchain_community.document_loaders import TextLoader
 from langchain_core.documents import Document
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
-
-# ─────────────────────────────────────────────
-# S3 CONFIGURATION (Must match ml_app.py)
-# ─────────────────────────────────────────────
-S3_BUCKET = "aws-qa-dataset-0347" 
-S3_FILE_KEY = "aws_docs.txt"
-LOCAL_FILE_PATH = "data/aws_docs.txt"
-
-def download_data_from_s3():
-    """Downloads data from S3 if local file is missing."""
-    try:
-        s3 = boto3.client('s3')
-        print(f"📡 Connecting to S3 Bucket: {S3_BUCKET}...")
-        os.makedirs(os.path.dirname(LOCAL_FILE_PATH), exist_ok=True)
-        
-        s3.download_file(S3_BUCKET, S3_FILE_KEY, LOCAL_FILE_PATH)
-        print(f"✅ Downloaded {S3_FILE_KEY} from S3.")
-        return True
-    except Exception as e:
-        print(f"⚠️  S3 Download failed: {e}")
-        return False
 
 def parse_structured_docs(filepath):
     """
     Parse aws_docs.txt into section-aware chunks.
     Each chunk gets metadata: service name + section type.
     """
-    # --- S3 CHECK ---
-    if not os.path.exists(filepath):
-        print(f"🔸 Local file missing. Attempting download from S3...")
-        if not download_data_from_s3():
-            raise FileNotFoundError(f"Cannot find file locally or on S3.")
-
     with open(filepath, "r", encoding="utf-8") as f:
         text = f.read()
 
@@ -83,10 +55,14 @@ def parse_structured_docs(filepath):
 
 def main():
     print("=" * 50)
-    print("AWS Documentation Ingestion Pipeline (S3 Enabled)")
+    print("AWS Documentation Ingestion Pipeline")
     print("=" * 50)
 
     filepath = "data/aws_docs.txt"
+
+    if not os.path.exists(filepath):
+        print(f"ERROR: {filepath} not found. Please add the dataset first.")
+        return
 
     print("\nParsing structured AWS documentation...")
     documents = parse_structured_docs(filepath)
