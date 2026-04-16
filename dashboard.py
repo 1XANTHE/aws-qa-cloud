@@ -97,17 +97,21 @@ def load_ml_system_logic():
 
 @st.cache_resource
 def load_rag_system_logic(api_key):
-    if not api_key: return None, None, "API Key missing"
-    from langchain_community.vectorstores import FAISS
-    from langchain_community.embeddings import HuggingFaceEmbeddings
-    from groq import Groq
-    from app import ask
-    embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
-    if not os.path.exists("vector_store"): return None, None, "vector_store/ missing"
-    db = FAISS.load_local("vector_store", embeddings, allow_dangerous_deserialization=True)
-    client = Groq(api_key=api_key)
-    def rag_ask_fn(query): return ask(db, client, query)
-    return rag_ask_fn, db, None
+    if not api_key:
+        return None, None, "API Key missing"
+    try:
+        from langchain_community.vectorstores import FAISS
+        from langchain_community.embeddings import HuggingFaceEmbeddings
+        from groq import Groq
+        from app import ask
+        embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+        if not os.path.exists("vector_store"):
+            return None, None, "vector_store/ missing"
+        db = FAISS.load_local("vector_store", embeddings, allow_dangerous_deserialization=True)
+        client = Groq(api_key=api_key)
+        def rag_ask_fn(query):
+            return ask(db, client, query)
+        return rag_ask_fn, db, None
     except Exception as e:
         return None, None, str(e)
 
