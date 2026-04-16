@@ -11,7 +11,7 @@ st.set_page_config(
     page_title="AWS QA",
     page_icon="☁️",
     layout="wide",
-    initial_sidebar_state="collapsed"
+    initial_sidebar_state="expanded"  # Force sidebar open so you see the API Key input
 )
 
 st.markdown("""
@@ -26,13 +26,18 @@ st.markdown("""
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     
-    /* Hide default Streamlit Footer and Header Menu */
-    div[data-testid="stToolbar"] {display: none;}
-    div[data-testid="stDecoration"] {display: none;}
-    div[data-testid="stStatusWidget"] {display: none;}
+    /* Keep the sidebar open */
+    [data-testid="stSidebar"] {
+        background-color: #0e1117;
+        border-right: 1px solid #3e4a5b;
+    }
+    [data-testid="stSidebarContent"] {
+        padding: 20px;
+    }
+    
+    /* Hide default Streamlit Footer */
     footer {visibility: hidden;}
-    div[data-testid="stMainMenu"] {display: none;}
-
+    
     /* Custom Input Box */
     .stTextInput > div > div > input {
         background-color: #1e2530;
