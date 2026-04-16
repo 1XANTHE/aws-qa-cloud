@@ -1,16 +1,15 @@
-# dashboard.py — Final Fix (Silences Logs + Fixes Input Error)
+# dashboard.py — Main Dashboard (QA Comparison Only)
 import streamlit as st
-import time
 import os
 
-# ─────────────────────────────────────────────
-# 1. SET LOG LEVEL TO 'ERROR' (Stops Warning Spam)
-# ─────────────────────────────────────────────
+# ─────────────────────────────────────
+# CUSTOM CSS
+# ─────────────────────────────────────
 st.set_page_config(
     page_title="AWS QA",
     page_icon="☁️",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="expanded" # Sidebar stays open
 )
 
 st.markdown("""
@@ -25,11 +24,13 @@ st.markdown("""
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     
-    /* Keep Toolbar & Style it Dark */
+    /* KEEP TOOLBAR (To see the 3-line Menu) */
     div[data-testid="stToolbar"] {
         background-color: #0e1117;
         border-bottom: 1px solid #3e4a5b;
     }
+    
+    /* Sidebar Styling */
     [data-testid="stSidebar"] {
         background-color: #0e1117;
         border-right: 1px solid #3e4a5b;
@@ -76,23 +77,16 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ─────────────────────────────────────────────
+# ─────────────────────────────────────
 # SIDEBAR (Settings)
-# ─────────────────────────────────────────────
+# ─────────────────────────────────────
 with st.sidebar:
     st.markdown("### ⚙️ Configuration")
     groq_api_key = st.text_input("Groq API Key", type="password", help="Enter key to enable RAG System")
-    
-    st.divider()
-    
-    # Evaluation Toggle
-    if st.button("📊 Run Evaluation"):
-        st.session_state.show_eval = True
-        st.rerun()
 
-# ─────────────────────────────────────────────
+# ─────────────────────────────────────
 # LOAD SYSTEMS
-# ─────────────────────────────────────────────
+# ─────────────────────────────────────
 @st.cache_resource
 def load_ml_system_logic():
     from ml_app import load_structured_docs, HybridRetriever, get_answer
@@ -114,18 +108,18 @@ def load_rag_system_logic(api_key):
     client = Groq(api_key=api_key)
     def rag_ask_fn(query): return ask(db, client, query)
     return rag_ask_fn, db, None
+    except Exception as e:
+        return None, None, str(e)
 
-groq_api_key = st.sidebar.text_input("Groq API Key", type="password")
 ml_retriever, ml_get_answer, ml_err = load_ml_system_logic()
 rag_ask_fn, rag_db, rag_err = load_rag_system_logic(groq_api_key)
 
-# ─────────────────────────────────────────────
+# ─────────────────────────────────────
 # MAIN UI
-# ─────────────────────────────────────────────
+# ─────────────────────────────────────
 st.markdown("<h1 style='text-align: center; margin-top: -50px;'>☁️ AWS Cloud QA</h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; color: #888888;'>Compare RAG vs Custom Machine Learning models.</p>", unsafe_allow_html=True)
 
-# NOTE: I put a space " " in label to avoid "Empty value" error
 user_query = st.text_input(" ", placeholder="Type question and press Enter...", key="user_query_input", label_visibility="collapsed")
 
 if user_query:
@@ -155,69 +149,3 @@ if user_query:
             st.markdown(f"<p style='color: #ff6b6b;'>⏱️ {elapsed:.2f}s</p>", unsafe_allow_html=True)
             st.markdown(f"<div style='white-space: pre-wrap;'>{answer}</div>", unsafe_allow_html=True)
             st.caption(f"📚 {', '.join(sources)}")
-
-# ─────────────────────────────────────────────
-# EVALUATION SECTION
-# ─────────────────────────────────────────────
-if 'show_eval' not in st.session_state:
-    st.session_state.show_eval = False
-
-if st.session_state.show_eval:
-    st.divider()
-    st.markdown("<h2 style='text-align: center;'>📊 Automated Performance Evaluation</h2>", unsafe_allow_html=True)
-    
-    eval_btn = st.button("🚀 Run 25-Question Test Suite", type="secondary", use_container_width=True)
-    
-    if eval_btn:
-        if rag_err: st.warning("RAG System is not available. Running ML evaluation only.")
-        
-        from evaluate import TEST_QUESTIONS, Evaluator, compute_summary
-        evaluator = Evaluator()
-        
-        progress_bar = st.progress(0, text="Starting evaluation...")
-        
-        ml_results_eval = []
-        rag_results_eval = []
-        total_questions = len(TEST_QUESTIONS)
-        
-        for i, q in enumerate(TEST_QUESTIONS):
-            progress_bar.progress((i + 1) / total_questions, text=f"Testing {q['id']}: {q['query'][:30]}...")
-            
-            # ML Run
-            try:
-                ans, time_t, res = ml_get_answer(ml_retriever, q['query'])
-                sim = evaluator.semantic_similarity(ans, q['expected'])
-                ml_results_eval.append({"id": q['id'], "time": time_t, "similarity": sim})
-            except: ml_results_eval.append({"id": q['id'], "time": 0, "similarity": 0})
-
-            # RAG Run
-            if not rag_err:
-                try:
-                    ans, time_t, docs = rag_ask_fn(q['query'])
-                    sim = evaluator.semantic_similarity(ans, q['expected'])
-                    rag_results_eval.append({"id": q['id'], "time": time_t, "similarity": sim})
-                except: rag_results_eval.append({"id": q['id'], "time": 0, "similarity": 0})
-        
-        progress_bar.empty()
-        st.success("✅ Evaluation Complete!")
-        
-        # --- VISUAL METRICS ---
-        col_metrics1, col_metrics2 = st.columns(2)
-        
-        avg_ml_acc = sum(r['similarity'] for r in ml_results_eval) / len(ml_results_eval)
-        avg_ml_time = sum(r['time'] for r in ml_results_eval) / len(ml_results_eval)
-        
-        with col_metrics1:
-            st.metric("⚡ ML Accuracy", value=f"{avg_ml_acc:.4f}")
-            st.metric("⚡ ML Avg Time", value=f"{avg_ml_time:.4f} s")
-            
-        if not rag_err:
-            avg_rag_acc = sum(r['similarity'] for r in rag_results_eval) / len(rag_results_eval)
-            avg_rag_time = sum(r['time'] for r in rag_results_eval) / len(rag_results_eval)
-            with col_metrics2:
-                st.metric("🤖 RAG Accuracy", value=f"{avg_rag_acc:.4f}")
-                st.metric("🤖 RAG Avg Time", value=f"{avg_rag_time:.4f} s")
-        
-        if st.button("Hide Evaluation"):
-            st.session_state.show_eval = False
-            st.rerun()
