@@ -12,7 +12,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 # S3 CONFIGURATION
 # ─────────────────────────────────────────────
 # CHANGE THIS TO YOUR BUCKET NAME
-S3_BUCKET = "aws-qa-dataset-yourname" 
+S3_BUCKET = "aws-qa-dataset-0347" 
 S3_FILE_KEY = "aws_docs.txt"
 LOCAL_FILE_PATH = "data/aws_docs.txt"
 
