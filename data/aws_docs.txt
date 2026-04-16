@@ -1,0 +1,387 @@
+## Amazon EC2
+Source: AWS Official Documentation (https://docs.aws.amazon.com/ec2/)
+
+### Description
+Amazon Elastic Compute Cloud (EC2) is a cloud computing service that provides scalable virtual servers called instances. It allows users to launch and manage computing resources on demand without purchasing physical hardware. EC2 enables developers and organizations to quickly scale computing capacity depending on workload requirements. EC2 is one of the foundational services of AWS and powers a significant portion of web infrastructure worldwide.
+
+### Key Features
+- On-demand virtual servers known as EC2 instances
+- Multiple instance types optimized for compute, memory, storage, and GPU workloads
+- Auto Scaling to automatically adjust capacity based on demand
+- Integration with services such as Amazon S3, VPC, IAM, and CloudWatch
+- Pay-as-you-go pricing model with Reserved and Spot instance options
+- Support for Windows, Linux, and macOS operating systems
+- Elastic Load Balancing to distribute traffic across instances
+- Amazon Machine Images (AMIs) for pre-configured server templates
+
+### Use Cases
+- Web application hosting and content delivery
+- High performance computing and scientific simulations
+- Batch processing and data transformation jobs
+- Machine learning model training and inference
+- Development and testing environments
+- Enterprise application hosting such as SAP and Oracle
+
+
+## Amazon S3
+Source: AWS Official Documentation (https://docs.aws.amazon.com/s3/)
+
+### Description
+Amazon Simple Storage Service (S3) is an object storage service designed to store and retrieve any amount of data from anywhere on the internet. Data in S3 is stored as objects within containers called buckets. S3 is built for 99.999999999% durability and stores data for millions of customers worldwide. It provides industry-leading scalability, data availability, security, and performance.
+
+### Key Features
+- Object storage architecture supporting any file type
+- High durability of 11 nines (99.999999999%)
+- Scalable storage capacity with no fixed limits
+- Data versioning and lifecycle management policies
+- Encryption at rest and in transit using AES-256 and TLS
+- S3 Intelligent-Tiering for automatic cost optimization
+- Cross-region replication for disaster recovery
+- Event notifications for triggering workflows on object changes
+- Access control using bucket policies and IAM roles
+
+### Use Cases
+- Backup and archival storage for enterprise data
+- Static website hosting with custom domains
+- Data lakes and big data analytics storage
+- Media storage and distribution including video and images
+- Log aggregation and analysis
+- Disaster recovery and business continuity
+- Machine learning training data storage
+
+
+## AWS Lambda
+Source: AWS Official Documentation (https://docs.aws.amazon.com/lambda/)
+
+### Description
+AWS Lambda is a serverless computing service that allows developers to run code without provisioning or managing servers. Code runs in response to events such as HTTP requests, file uploads, database changes, or scheduled triggers. Lambda automatically manages the underlying compute infrastructure, scales execution, and charges only for the compute time consumed. It supports multiple runtimes including Python, Node.js, Java, Go, and Ruby.
+
+### Key Features
+- Event-driven compute service with automatic triggering
+- Automatic horizontal scaling with no configuration needed
+- No server management or provisioning required
+- Supports Python, Node.js, Java, Go, Ruby, and custom runtimes
+- Integration with over 200 AWS services as event sources
+- Pay only for compute time used measured in milliseconds
+- Up to 15 minutes execution time per invocation
+- Configurable memory from 128 MB to 10 GB
+- Layers for sharing common code across functions
+
+### Use Cases
+- Backend APIs in combination with API Gateway
+- Real-time file processing triggered by S3 uploads
+- Automation tasks such as scheduled jobs and backups
+- Serverless web application backends
+- Data transformation and ETL pipelines
+- Chatbot and voice assistant backends
+- Image and video processing workflows
+
+
+## Amazon API Gateway
+Source: AWS Official Documentation (https://docs.aws.amazon.com/apigateway/)
+
+### Description
+Amazon API Gateway is a fully managed service that enables developers to create, publish, maintain, monitor, and secure APIs at any scale. It acts as the front door for applications to access backend services including Lambda functions, EC2 applications, and any web application. API Gateway handles all tasks involved in accepting and processing API calls including traffic management, authorization, monitoring, and version management.
+
+### Key Features
+- Create and manage RESTful, HTTP, and WebSocket APIs
+- Traffic management with throttling and rate limiting
+- Authentication and authorization using IAM, Cognito, and Lambda authorizers
+- Integration with AWS Lambda, EC2, and HTTP endpoints
+- Monitoring and logging using Amazon CloudWatch
+- API versioning and stage management
+- SDK generation for iOS, Android, and JavaScript
+- Request and response transformation using mapping templates
+- Caching to reduce backend load and improve latency
+
+### Use Cases
+- Building and publishing REST APIs for mobile and web apps
+- Connecting front-end applications with backend Lambda functions
+- Microservices architectures with multiple backend services
+- Serverless application backends
+- Real-time two-way communication using WebSocket APIs
+- Legacy service modernization through API wrapping
+
+
+## Amazon DynamoDB
+Source: AWS Official Documentation (https://docs.aws.amazon.com/dynamodb/)
+
+### Description
+Amazon DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability. It supports key-value and document data models and is designed to handle any scale of workload. DynamoDB automatically replicates data across multiple Availability Zones and scales to handle trillions of requests per day. It is used by large-scale applications at companies like Amazon, Lyft, and Airbnb.
+
+### Key Features
+- Managed NoSQL database with no server management
+- Single-digit millisecond latency at any scale
+- Automatic scaling of throughput and storage
+- Built-in security with encryption at rest and in transit
+- Global Tables for multi-region active-active replication
+- DynamoDB Streams for change data capture
+- Point-in-time recovery and on-demand backups
+- DAX (DynamoDB Accelerator) for microsecond caching
+- Transactions support for ACID operations
+
+### Use Cases
+- Mobile and web application databases requiring low latency
+- Gaming applications with leaderboards and player state
+- Real-time analytics and clickstream data
+- IoT data storage and telemetry
+- Shopping cart and session management
+- Ad tech platforms requiring high throughput
+
+
+## Amazon RDS
+Source: AWS Official Documentation (https://docs.aws.amazon.com/rds/)
+
+### Description
+Amazon Relational Database Service (RDS) is a managed service that makes it easy to set up, operate, and scale relational databases in the cloud. RDS handles routine database tasks such as provisioning, patching, backup, recovery, and scaling. It supports multiple database engines so teams can use their preferred SQL database without managing the infrastructure. RDS reduces administrative overhead while providing high availability and durability.
+
+### Key Features
+- Supports MySQL, PostgreSQL, MariaDB, Oracle, SQL Server, and Amazon Aurora
+- Automated backups and point-in-time recovery
+- Multi-AZ deployments for high availability and failover
+- Read replicas for improved read performance and scalability
+- Automated patching and software maintenance
+- Encryption at rest and in transit
+- Monitoring and metrics via Amazon CloudWatch
+- Storage auto-scaling to handle unexpected growth
+
+### Use Cases
+- Web and mobile application databases
+- E-commerce platforms requiring transactional databases
+- Enterprise applications such as ERP and CRM systems
+- SaaS application backends
+- Reporting and analytics using SQL queries
+- Development and test database environments
+
+
+## Amazon VPC
+Source: AWS Official Documentation (https://docs.aws.amazon.com/vpc/)
+
+### Description
+Amazon Virtual Private Cloud (VPC) lets users launch AWS resources in a logically isolated virtual network that resembles a traditional data center network. Users have full control over their virtual networking environment including IP address ranges, subnets, route tables, and network gateways. VPC provides complete network isolation and allows secure communication between AWS resources and on-premises infrastructure.
+
+### Key Features
+- Logically isolated virtual network within AWS
+- Customizable IP address ranges using CIDR blocks
+- Public and private subnets for network segmentation
+- Internet Gateway for public internet access
+- NAT Gateway for private subnet internet access
+- Security Groups and Network ACLs for traffic filtering
+- VPC Peering for connecting multiple VPCs
+- AWS PrivateLink for private connectivity to services
+- VPN and Direct Connect for hybrid cloud connectivity
+
+### Use Cases
+- Isolating application tiers using public and private subnets
+- Hybrid cloud architectures connecting on-premises networks
+- Multi-tier web application architectures
+- Secure database isolation in private subnets
+- Compliance environments requiring network isolation
+- Multi-account architectures with centralized networking
+
+
+## AWS IAM
+Source: AWS Official Documentation (https://docs.aws.amazon.com/iam/)
+
+### Description
+AWS Identity and Access Management (IAM) is a service that helps securely control access to AWS resources. IAM enables administrators to manage who can authenticate and what actions they are authorized to perform. It follows the principle of least privilege allowing granular permission control. IAM is a global service and is free to use with every AWS account.
+
+### Key Features
+- User and group management for access control
+- Fine-grained permission policies using JSON
+- Roles for granting temporary access to services and users
+- Multi-factor authentication (MFA) support
+- Identity federation with SAML and OpenID Connect
+- Service control policies for AWS Organizations
+- Access Analyzer to identify overly permissive policies
+- Credential reports and access advisor for auditing
+- Temporary security credentials via AWS STS
+
+### Use Cases
+- Granting developers least-privilege access to AWS services
+- Enabling EC2 instances to access S3 without hardcoded credentials
+- Cross-account access management
+- Federated access using corporate identity providers
+- Auditing and compliance reporting
+- Automating infrastructure access for CI/CD pipelines
+
+
+## Amazon CloudWatch
+Source: AWS Official Documentation (https://docs.aws.amazon.com/cloudwatch/)
+
+### Description
+Amazon CloudWatch is a monitoring and observability service for AWS resources and applications. It collects and tracks metrics, collects and monitors log files, and sets alarms. CloudWatch provides a unified view of operational health and allows users to detect anomalous behavior, set automated actions, troubleshoot issues, and discover insights. It is deeply integrated with nearly every AWS service.
+
+### Key Features
+- Metrics collection for AWS services and custom applications
+- Log collection, storage, and analysis with CloudWatch Logs
+- Dashboards for visualizing metrics and operational data
+- Alarms to trigger notifications or automated actions
+- CloudWatch Events and EventBridge for event-driven automation
+- Container Insights for ECS and EKS monitoring
+- Application Insights for .NET and SQL Server applications
+- Contributor Insights for analyzing log patterns
+- Anomaly detection using machine learning
+
+### Use Cases
+- Monitoring EC2, Lambda, RDS, and other AWS service health
+- Setting billing alarms to avoid unexpected costs
+- Application performance monitoring and troubleshooting
+- Log analysis and pattern detection
+- Automated responses to operational events
+- Infrastructure cost optimization using usage metrics
+
+
+## Amazon SNS
+Source: AWS Official Documentation (https://docs.aws.amazon.com/sns/)
+
+### Description
+Amazon Simple Notification Service (SNS) is a fully managed messaging service for application-to-application and application-to-person communication. SNS uses a publish-subscribe model where publishers send messages to topics and subscribers receive them. It enables decoupled microservices, distributed systems, and event-driven applications. SNS can fan out a single message to millions of subscribers simultaneously.
+
+### Key Features
+- Publish-subscribe messaging model
+- Topics for message broadcasting to multiple subscribers
+- Support for SMS, email, HTTP, Lambda, SQS, and mobile push
+- Message filtering to deliver only relevant messages to subscribers
+- Message fanout to multiple endpoints simultaneously
+- FIFO topics for ordered and deduplicated messaging
+- Message encryption using AWS KMS
+- Dead-letter queues for failed message delivery
+
+### Use Cases
+- Sending alerts and notifications to users via SMS and email
+- Fanout architecture to trigger multiple services from one event
+- Application-to-application messaging in microservices
+- Mobile push notifications for iOS and Android
+- Monitoring alerts from CloudWatch to operations teams
+- Order processing notifications in e-commerce
+
+
+## Amazon SQS
+Source: AWS Official Documentation (https://docs.aws.amazon.com/sqs/)
+
+### Description
+Amazon Simple Queue Service (SQS) is a fully managed message queuing service that enables decoupling and scaling of microservices, distributed systems, and serverless applications. SQS eliminates the complexity and overhead of managing message-oriented middleware. Messages are stored in queues until they are processed by consuming applications. SQS guarantees at-least-once delivery and supports both standard and FIFO queues.
+
+### Key Features
+- Fully managed message queuing with no infrastructure
+- Standard queues for maximum throughput and at-least-once delivery
+- FIFO queues for exactly-once processing and ordered delivery
+- Long polling to reduce empty responses and costs
+- Dead-letter queues for handling failed message processing
+- Message retention for up to 14 days
+- Visibility timeout to prevent duplicate processing
+- Server-side encryption using AWS KMS
+- Integration with Lambda for event-driven processing
+
+### Use Cases
+- Decoupling application components and microservices
+- Work queue for distributing tasks among multiple workers
+- Buffering writes to databases during traffic spikes
+- Order processing pipelines with guaranteed delivery
+- Retry logic for failed tasks using dead-letter queues
+- Background job processing in web applications
+
+
+## AWS CloudFormation
+Source: AWS Official Documentation (https://docs.aws.amazon.com/cloudformation/)
+
+### Description
+AWS CloudFormation is an infrastructure-as-code service that allows users to model, provision, and manage AWS resources using templates. Templates are written in JSON or YAML and describe the desired state of infrastructure. CloudFormation handles resource provisioning, dependency management, and rollback on failure. It enables repeatable, automated, and version-controlled infrastructure deployments.
+
+### Key Features
+- Infrastructure-as-code using JSON or YAML templates
+- Automatic dependency resolution between resources
+- Stack management for grouping related resources
+- Rollback on failure to maintain stable state
+- Change sets to preview changes before applying
+- Nested stacks for modular template design
+- StackSets for deploying across multiple accounts and regions
+- Drift detection to identify manual configuration changes
+- Integration with AWS CDK for higher-level abstractions
+
+### Use Cases
+- Automating infrastructure provisioning for applications
+- Replicating environments across development, staging, and production
+- Disaster recovery by re-creating infrastructure quickly
+- Compliance and governance through standardized templates
+- CI/CD pipeline infrastructure management
+- Multi-region application deployments
+
+
+## Amazon ECS
+Source: AWS Official Documentation (https://docs.aws.amazon.com/ecs/)
+
+### Description
+Amazon Elastic Container Service (ECS) is a fully managed container orchestration service that makes it easy to deploy, manage, and scale containerized applications. ECS supports Docker containers and integrates deeply with the AWS ecosystem. It can run containers on EC2 instances or in serverless mode using AWS Fargate, eliminating the need to manage servers entirely.
+
+### Key Features
+- Fully managed container orchestration for Docker
+- Fargate launch type for serverless container execution
+- EC2 launch type for full control over underlying instances
+- Integration with ECR for container image storage
+- Service auto-scaling based on CPU and memory metrics
+- Load balancer integration for traffic distribution
+- Task definitions for defining container configurations
+- IAM task roles for fine-grained container permissions
+- CloudWatch integration for container monitoring and logging
+
+### Use Cases
+- Microservices deployment and management
+- Batch processing using containerized jobs
+- Machine learning inference with containerized models
+- Web application hosting with auto-scaling
+- CI/CD pipelines using containerized build environments
+- Lift-and-shift migration of on-premises containerized apps
+
+
+## Amazon Redshift
+Source: AWS Official Documentation (https://docs.aws.amazon.com/redshift/)
+
+### Description
+Amazon Redshift is a fully managed cloud data warehouse that allows users to analyze large datasets using standard SQL. It is optimized for online analytical processing (OLAP) and can process queries across petabytes of structured and semi-structured data. Redshift uses columnar storage and massively parallel processing (MPP) to deliver fast query performance. It integrates with popular BI tools and the broader AWS data ecosystem.
+
+### Key Features
+- Columnar storage for fast analytical query performance
+- Massively parallel processing (MPP) architecture
+- Redshift Spectrum for querying S3 data directly
+- Automatic workload management and query optimization
+- Data compression to reduce storage costs
+- Concurrency Scaling for handling query spikes
+- Materialized views for precomputed query results
+- Integration with S3, Glue, Kinesis, and SageMaker
+- Automated snapshots and cross-region backup
+
+### Use Cases
+- Business intelligence and reporting dashboards
+- Log analysis and clickstream analytics
+- Financial analytics and regulatory reporting
+- Customer behavior analysis and segmentation
+- ETL pipeline destination for transformed data
+- Ad hoc querying on large structured datasets
+
+
+## AWS Elastic Beanstalk
+Source: AWS Official Documentation (https://docs.aws.amazon.com/elasticbeanstalk/)
+
+### Description
+AWS Elastic Beanstalk is a platform-as-a-service (PaaS) offering that allows developers to deploy and manage web applications without worrying about the underlying infrastructure. Developers simply upload their code and Elastic Beanstalk automatically handles deployment, capacity provisioning, load balancing, auto-scaling, and health monitoring. It supports multiple platforms including Java, Python, Node.js, Ruby, PHP, Go, and Docker.
+
+### Key Features
+- Automatic deployment and environment management
+- Supports Java, Python, Node.js, Ruby, PHP, Go, and Docker
+- Auto Scaling and load balancing built-in
+- Health monitoring and automatic environment recovery
+- Environment cloning for replicating configurations
+- Managed platform updates for runtime and OS patches
+- Integration with RDS, S3, CloudWatch, and other AWS services
+- Blue/green deployments for zero-downtime releases
+- Custom configuration using .ebextensions
+
+### Use Cases
+- Rapid web application deployment without infrastructure management
+- Startups and small teams with limited DevOps resources
+- Deploying multi-tier web applications quickly
+- Testing and staging environments
+- Migrating on-premises web apps to the cloud
+- API backend deployment with minimal configuration
