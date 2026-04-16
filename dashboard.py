@@ -14,15 +14,69 @@ st.set_page_config(
 
 st.markdown("""
     <style>
-    .stApp { background-color: #0e1117; color: #fafafa; }
-    h1, h2, h3 { color: #ffffff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    div[data-testid="stToolbar"] {display: none;}
+    /* Background & Fonts */
+    .stApp {
+        background-color: #0e1117;
+        color: #fafafa;
+    }
+    h1, h2, h3 {
+        color: #ffffff;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    /* RESTORE TOOLBAR (The 3-lines Menu) & Make it Dark */
+    div[data-testid="stToolbar"] {
+        background-color: #0e1117;
+        border-bottom: 1px solid #3e4a5b;
+        /* display: none; <--- THIS LINE REMOVED */
+    }
+    
+    /* Keep Sidebar styling */
+    [data-testid="stSidebar"] {
+        background-color: #0e1117;
+        border-right: 1px solid #3e4a5b;
+    }
+    
+    /* Hide Footer */
     footer {visibility: hidden;}
-    [data-testid="stSidebar"] { background-color: #0e1117; border-right: 1px solid #3e4a5b; }
-    .metric-card { background-color: #1e2530; border: 1px solid #3e4a5b; border-radius: 15px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); min-height: 100px; }
+    
+    /* Input Box */
+    .stTextInput > div > div > input {
+        background-color: #1e2530;
+        color: white;
+        border: 1px solid #3e4a5b;
+        border-radius: 10px;
+        padding: 15px;
+        font-size: 18px;
+    }
+    
+    /* Button */
+    .stButton > button {
+        background-color: #ff4b4b;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+    .stButton > button:hover {
+        background-color: #ff6b6b;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(255, 75, 75, 0.3);
+    }
+
+    /* Result Boxes */
+    .metric-card {
+        background-color: #1e2530;
+        border: 1px solid #3e4a5b;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        min-height: 100px;
+    }
     </style>
 """, unsafe_allow_html=True)
-
 # ─────────────────────────────────────────────
 # LOAD SYSTEMS
 # ─────────────────────────────────────────────
