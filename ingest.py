@@ -10,7 +10,7 @@ from langchain_community.vectorstores import FAISS
 # ─────────────────────────────────────────────
 # S3 CONFIGURATION (Must match ml_app.py)
 # ─────────────────────────────────────────────
-S3_BUCKET = "aws-qa-dataset-yourname" 
+S3_BUCKET = "aws-qa-dataset-0347" 
 S3_FILE_KEY = "aws_docs.txt"
 LOCAL_FILE_PATH = "data/aws_docs.txt"
 
