@@ -118,7 +118,7 @@ class HybridRetriever:
         self.tfidf_matrix = self.tfidf.fit_transform(chunks)
         print("Retrieval system ready.\n")
 
-    def retrieve(self, query, top_k=3, section_filter=None, semantic_weight=0.65):
+    def retrieve(self, query, top_k=2, section_filter=None, semantic_weight=0.8)::
         enhanced_q = enhance_query(query)
 
         # Semantic scores
