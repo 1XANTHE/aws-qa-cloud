@@ -26,7 +26,7 @@ st.markdown("""
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     
-    /* Hide the default Streamlit Footer and Header Menu */
+    /* Hide default Streamlit Footer and Header Menu */
     div[data-testid="stToolbar"] {display: none;}
     div[data-testid="stDecoration"] {display: none;}
     div[data-testid="stStatusWidget"] {display: none;}
@@ -76,8 +76,8 @@ st.markdown("""
 with st.sidebar:
     st.markdown("### ⚙️ Configuration")
     
-    # API Key Input
-    groq_api_key = st.text_input("Groq API Key", type="password", help="Required for System 1 (RAG)")
+    # API Key Input - REQUIRED FOR RAG SYSTEM
+    groq_api_key = st.text_input("Groq API Key", type="password", help="Enter key to enable RAG System")
     
     st.divider()
     
