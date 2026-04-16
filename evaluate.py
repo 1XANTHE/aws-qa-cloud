@@ -294,5 +294,30 @@ def main():
         avg_rag = sum(r['similarity'] for r in rag_results) / len(rag_results)
         print(f"RAG Avg Accuracy: {avg_rag:.4f}")
 
+def compute_summary(results):
+    """
+    Computes a summary dictionary from a list of results.
+    Used by the Dashboard to calculate averages.
+    """
+    if not results:
+        return {}
+
+    # Filter out errors if any
+    valid = [r for r in results if r.get("similarity", 0) > 0]
+
+    if not valid:
+        return {
+            "avg_semantic_similarity": 0,
+            "avg_response_time": 0
+        }
+
+    avg_sim = round(np.mean([r["similarity"] for r in valid]), 4)
+    avg_time = round(np.mean([r["time"] for r in valid]), 4)
+
+    return {
+        "avg_semantic_similarity": avg_sim,
+        "avg_response_time": avg_time
+    }
+    
 if __name__ == "__main__":
     main()
