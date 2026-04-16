@@ -118,7 +118,8 @@ class HybridRetriever:
         self.tfidf_matrix = self.tfidf.fit_transform(chunks)
         print("Retrieval system ready.\n")
 
-    def retrieve(self, query, top_k=2, section_filter=None, semantic_weight=0.8)::
+    def retrieve(self, query, top_k=2, section_filter=None, semantic_weight=0.8):
+        """Retrieval logic with optimized defaults."""
         enhanced_q = enhance_query(query)
 
         # Semantic scores
@@ -160,7 +161,7 @@ class HybridRetriever:
         return results
 
 # ─────────────────────────────────────────────
-# SECTION 4 — EXTRACTIVE ANSWER GENERATION
+# SECTION 4 — EXTRACTIVE ANSWER
 # ─────────────────────────────────────────────
 
 def extract_answer(query, results, section_intent=None):
@@ -201,7 +202,8 @@ def get_answer(retriever, query, top_k=3, verbose=False):
     """Full ML pipeline for a single query."""
     start = time.time()
     section_intent = detect_section_intent(query)
-    results = retriever.retrieve(query, top_k=top_k, section_filter=section_intent)
+    # Pass top_k=2 for precision
+    results = retriever.retrieve(query, top_k=2, section_filter=section_intent) 
     answer = extract_answer(query, results, section_intent)
     elapsed = time.time() - start
 
@@ -212,7 +214,6 @@ def get_answer(retriever, query, top_k=3, verbose=False):
             print(f"[Top result: {results[0]['metadata']['service']} — {results[0]['metadata']['section']} (score: {results[0]['score']:.3f})]")
 
     return answer, elapsed, results
-
 
 def main():
     print("=" * 55)
