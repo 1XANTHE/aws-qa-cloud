@@ -13,9 +13,6 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Set logger level to 'error' to stop the 500+ warning lines from transformers
-st.set_option('logger.level', 'error')
-
 st.markdown("""
     <style>
     /* Background & Fonts */
